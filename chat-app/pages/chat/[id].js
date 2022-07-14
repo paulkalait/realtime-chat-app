@@ -35,7 +35,7 @@ export default function Chat() {
       <Flex flex={1} flexDirection="column">
         <Topbar />
 
-        <Flex flex={1} direction="column">
+        <Flex flex={1} direction="column" pt={4} mx={3} overflowX="scroll" sx={{scrollbarWidth: "none"}}>
           <Flex
             bg="blue.100"
             w="fit-content"
@@ -47,6 +47,7 @@ export default function Chat() {
           >
             <Text>This is a dummy message</Text>
           </Flex>
+          
           <Flex
             bg="blue.100"
             w="fit-content"
