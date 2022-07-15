@@ -8,6 +8,7 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+import Head from "next/head";
 
 const Topbar = () => {
   return (
@@ -29,6 +30,7 @@ const BottomBar = () => {
 export default function Chat() {
   return (
     <Flex h="100vh">
+    <Head>Chat App</Head>
       <Sidebar />
 
       {/*  right side of screen flex is 1 because it will fill whole container*/}

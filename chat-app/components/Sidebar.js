@@ -1,5 +1,14 @@
 import { Avatar, Flex, IconButton, Text, Button } from "@chakra-ui/react";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
+//import sign out from firebaseimport 
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import  { collection} from '@firebase/firestore'
+import { db } from '../firebase'
+
+//import sign out from firebaseimport 
 
 //seperate chat component
 const Chat = () => {
@@ -11,10 +20,15 @@ const Chat = () => {
   );
 };
 export default function Sidebar() {
+  const [user] = useAuthState(auth);
+  const [snapshot, loading, error] = useCollection(collection(db, "chats"));
+  // only if snapshot is defined then do the maps on the docs
+  const chats = snapshot?.docs.map(doc => ({id: doc.id, ...doc.data()}))
+  console.log(chats)
   return (
     <Flex
       w="300px"
-      h="100vh"
+      h="100%"
       borderEnd="1px solid"
       borderColor="black.200"
       direction="column"
@@ -29,11 +43,11 @@ export default function Sidebar() {
         borderColor="black"
       >
         <Flex align="center">
-          <Avatar marginEnd={3} />
-          <Text>Johne doe</Text>
+          <Avatar  src={user.photoURL} />
+          <Text>{user.displayName}</Text>
         </Flex>
 
-        <IconButton icon={ArrowLeftIcon} size="sm" color="black" isRound />
+        <IconButton icon={ArrowLeftIcon} size="sm" color="black" isRound onClick={() => signOut(auth)} />
       </Flex>
       <Button m={5} p={4}>
         New Chat
